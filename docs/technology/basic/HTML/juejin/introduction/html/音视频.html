@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音视频</title>
+</head>
+<body>
+    <!-- audio -->
+    <figure>
+        <figcaption>点击播放听歌曲，点击扩展按钮下载歌曲：</figcaption><br>
+        <!-- autoplay loop -->
+        <audio controls src="https://music.163.com/song/media/outer/url?id=27781154.mp3">
+            <a href="https://music.163.com/song/media/outer/url?id=27781154.mp3" download></a>
+        </audio>
+    </figure>
+    <!-- video -->
+    <figure>
+        <figcaption>HTML5 多媒体标签</figcaption>
+        <!-- autoplay loop -->
+        <video controls src="https://www.w3schools.com/html/mov_bbb.mp4">
+            <a href="https://www.w3schools.com/html/mov_bbb.mp4" download></a>
+        </video>
+    </figure>
+    <!-- source -->
+    <figure>
+        <figcaption>HTML5 Source 标签</figcaption>
+        <video width="250" controls>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            <source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
+            <source src="https://www.w3schools.com/html/mov_bbb.webm" type="video/webm">
+            Download the
+            <a href="https://www.w3schools.com/html/mov_bbb.mp4" download>MP4</a>
+            or
+            <a href="https://www.w3schools.com/html/mov_bbb.ogg" download>OGG</a>
+            or
+            <a href="https://www.w3schools.com/html/mov_bbb.webm" download>WEBM</a>
+            video.
+        </video>
+    </figure>
+</body>
+</html>

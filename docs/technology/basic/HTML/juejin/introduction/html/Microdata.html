@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div itemscope itemtype="https://juejin.cn/cources">
+        <h1 itemprop="name">HTML5 入门教程</h1>
+        <p>
+            <span itemprop="author">前端周公子</span>
+            <span itemprop="datePublished">2023-05-01</span>
+        </p>
+        <h1 itemprop="name">CSS3 入门教程</h1>
+        <p>
+            <span itemprop="author">掘金皮皮</span>
+            <span itemprop="datePublished">2023-06-01</span>
+        </p>
+        <button onclick="showMicrodata()">打印 Microdata 信息</button>
+    </div>
+    <script>
+        /**
+         * 解析网页中的所有 Microdata 标记
+         * @params {string | null} filterType 过滤类型
+         * @return {array | object}
+         **/
+        function parseMicrodata(filterType = null) {
+            function sanitize(input) {
+                return input.replace(/\s/gi, " ").trim();
+            }
+
+            function addValue(information, name, value) {
+                if (information[name]) {
+                    if (typeof information[name] === "array") {
+                        information[name].push(value);
+                    } else {
+                        const arr = [];
+                        arr.push(information[name]);
+                        arr.push(value);
+                        information[name] = arr;
+                    }
+                } else {
+                    information[name] = value;
+                }
+            }
+
+            function traverseItem(item, information) {
+                const children = item.children;
+
+                for (let i = 0; i < children.length; i++) {
+                    const child = children[i];
+
+                    if (child.hasAttribute("itemscope")) {
+                        if (child.hasAttribute("itemprop")) {
+                            const itemProp = child.getAttribute("itemprop");
+                            const itemType = child.getAttribute("itemtype");
+
+                            const childInfo = {
+                                itemType: itemType,
+                            };
+
+                            traverseItem(child, childInfo);
+
+                            itemProp.split(" ").forEach((propName) => {
+                                addValue(information, propName, childInfo);
+                            });
+                        }
+                    } else if (child.hasAttribute("itemprop")) {
+                        const itemProp = child.getAttribute("itemprop");
+                        itemProp.split(" ").forEach((propName) => {
+                            if (propName === "url") {
+                                addValue(information, propName, child.href);
+                            } else {
+                                addValue(
+                                    information,
+                                    propName,
+                                    sanitize(child.content || child.textContent || child.src)
+                                );
+                            }
+                        });
+                        traverseItem(child, information);
+                    } else {
+                        traverseItem(child, information);
+                    }
+                }
+            }
+
+            const microdata = [];
+
+            document.querySelectorAll("[itemscope]").forEach(function (elem, i) {
+                const itemType = elem.getAttribute("itemtype");
+
+                const information = {
+                    itemType: itemType,
+                };
+
+                traverseItem(elem, information);
+
+                microdata.push(information);
+            });
+
+            if (!filterType) return microdata;
+
+            return microdata.find((item) => item.itemType === filterType);
+        }
+
+        function showMicrodata() {
+            const microdata = parseMicrodata()[0];
+            alert(
+                `页面 Microdata 如下：\n类型：${microdata.itemType
+                }\n数据：[${microdata.name.join(",")}]`
+            );
+        }
+    </script>
+</body>
+
+</html>

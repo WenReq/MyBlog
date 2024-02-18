@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>语义化</title>
+
+    <style>
+        @font-face {
+            font-family: "Megrim";
+            src: url(https://fonts.gstatic.com/s/megrim/v11/46kulbz5WjvLqJZVam_hVUdI1w.woff2) format('woff2');
+        }
+
+        h1 {
+            font-family: Megrim, Cursive;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Juejin HTML5 教程</h1>
+        <nav>
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">HTML5 教程</a></li>
+                <li><a href="#">联系我们</a></li>
+            </ul>
+        </nav>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">HTML5 教程</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+    </nav>
+    <time>2024-01-08 15:30:51</time>
+    <mark>平安 喜乐</mark>
+    <progress></progress>
+    <label for="file">File progress:</label>
+    <progress id="file" max="100" value="70">70%</progress>
+    <meter></meter>
+    <label for="fuel">Fuel level:</label>
+    <meter id="fuel" min="0" max="100" low="33" high="66" optimum="80" value="50">at 50/100</meter>
+    <footer class="footer">
+        <p class="footer_text">Copyright © By Juejin</p>
+    </footer>
+    <!-- 引用 -->
+    <blockquote cite="http://t.cn./RfjKO0F">
+        <p>Blockquote</p>
+    </blockquote>
+    <p>我最喜欢的一本书是《<cite>JavaScript高级程序设计</cite>》</p>
+    <p>在<cite>第一章</cite>，我们讲过<q>字符串是不可变量</q>。</p>
+    <p><code>const</code>声明创建一个只读的变量。</p>
+    <pre><code>
+    const add = (a, b) => a + b;
+    const multiply = (a, b) => a * b;
+    </code></pre>
+    <p>在投资之前，<strong>一定要做风险评估</strong>。</p>
+    <p>Cats <em>are</em> cute animals.</p>
+</body>
+</html>

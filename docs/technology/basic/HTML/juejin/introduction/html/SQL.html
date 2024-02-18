@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL</title>
+</head>
+<body>
+    <div>
+        <button onclick="openDb()">打开数据库</button>
+        <button onclick="createTable()">新建数据表</button>
+        <button onclick="insertOneData()">插入一条数据</button>
+        <button onclick="insertMultiData()">插入多条数据</button>
+        <button onclick="queryData()">查询数据</button>
+        <button onclick="updateData()">更新数据</button>
+    </div>
+    <div style="margin-top: 10px;" id="table-container"></div>
+
+    <script>
+         // 设置一个 Web SQL 数据库对象
+        let db;
+
+        function openDb() {
+            // 打开一个 Web SQL 数据库
+            db = openDatabase('juejin_courses', '1.0', 'Juejin Course Database', 2 * 1024 * 1024);
+            db && alert(`数据库 juejin_courses 打开成功`);
+        }
+
+        // 创建一个数据表
+        function createTable() {
+            if (!db) {
+                alert('请先打开数据库');
+                return;
+            }
+            // 执行一条 SQL 语句
+            db.transaction(function(tx) {
+                tx.executeSql('CREATE TABLE IF NOT EXISTS html5_table (id INTEGER PRIMARY KEY, title TEXT, author TEXT, createdAt INTEGER)');
+                alert('数据表 html5_table 创建成功');
+            });
+        }
+
+        // 向数据表中插入一行数据
+        function insertOneData() {
+            if (!db) {
+                alert('请先打开数据库');
+                return;
+            }
+            // 向 html5_table 表中插入一行数据
+            db.transaction(function(tx) {
+                tx.executeSql('INSERT INTO html5_table (title, author, createdAt) VALUES (?, ?, ?)', ['HTML5 简介', '前端周公子', (new Date('2023-05-01')).valueOf()], function(tx, results) {
+                    alert('插入成功，插入的行 ID 为 ' + results.insertId);
+                }, function(tx, error) {
+                    console.log('插入失败: ' + error.message);
+                });
+            });
+        }
+
+        // 向数据表中插入多行数据
+        function insertMultiData() {
+            if (!db) {
+                alert('请先打开数据库');
+                return;
+            }
+            // 向 mytable 表中插入多行数据
+            db.transaction(function(tx) {
+                tx.executeSql('INSERT INTO html5_table (title, author, createdAt) VALUES (?, ?, ?)', ['HTML5 语义化标签', '前端周公子', (new Date('2023-05-02')).valueOf()]);
+                tx.executeSql('INSERT INTO html5_table (title, author, createdAt) VALUES (?, ?, ?)', ['HTML5 MathML', '前端周公子', (new Date('2023-05-03')).valueOf()]);
+                tx.executeSql('INSERT INTO html5_table (title, author, createdAt) VALUES (?, ?, ?)', ['HTML5 SVG', '前端周公子', (new Date('2023-05-04')).valueOf()]);
+            });
+            alert('插入三条数据成功');
+        }
+
+        // 查询数据
+        function queryData() {
+            if (!db) {
+                alert('请先打开数据库');
+                return;
+            }
+            // 执行一条 SQL 查询语句
+            db.transaction(function(tx) {
+                tx.executeSql('SELECT * FROM html5_table', [], function(tx, results) {
+                const len = results.rows.length;
+                if (!len) {
+                    alert('查询成功，但是没有数据');
+                    return;
+                }
+                // 插入前先清空
+                document.getElementById('table-container').innerHTML = '';
+                for (let i = 0; i < len; i++) {
+                    // 向 table-container 里插入一个表格
+                    const table = document.createElement('table');
+                    const tr = document.createElement('tr');
+                    const td1 = document.createElement('td');
+                    const td2 = document.createElement('td');
+                    const td3 = document.createElement('td');
+                    const td4 = document.createElement('td');
+                    const td5 = document.createElement('td');
+                    td1.innerText = results.rows.item(i).id;
+                    td2.innerText = results.rows.item(i).title;
+                    td3.innerText = results.rows.item(i).author;
+                    td4.innerText = results.rows.item(i).createdAt;
+                    td5.innerHTML = `<a style="cursor:pointer; color: blue" onclick="deleteData(${results.rows.item(i).id})">删除</a>`;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    tr.appendChild(td4);
+                    tr.appendChild(td5);
+                    table.appendChild(tr);
+                    table.setAttribute('border', '1');
+                    document.getElementById('table-container').appendChild(table);
+                }
+                }, function(tx, error) {
+                console.log('查询失败: ' + error.message);
+                });
+            });
+        }
+
+        // 更新数据
+        function updateData() {
+            if (!db) {
+                alert('请先打开数据库');
+                return;
+            }
+            // 执行更新语句
+            db.transaction(function(tx) {
+                tx.executeSql('UPDATE html5_table SET author=? WHERE author=?', ['周公子在掘金', '前端周公子'], function(tx, results) {
+                    queryData();
+                    alert('更新成功，更新的行数为 ' + results.rowsAffected);
+                }, function(tx, error) {
+                    console.log('更新失败: ' + error.message);
+                });
+            });
+        }
+
+        // 删除数据
+        function deleteData(id) {
+            // 执行删除语句
+            db.transaction(function(tx) {
+                tx.executeSql('DELETE FROM html5_table WHERE id=?', [id], function(tx, results) {
+                    alert('删除成功，删除的 id 为：' + id);
+                    queryData();
+                }, function(tx, error) {
+                    console.log('删除失败: ' + error.message);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
