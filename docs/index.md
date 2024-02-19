@@ -10,7 +10,7 @@ hero:
   text: Don't pretend to do sth.
   tagline: 学习、分享技术，分享前端开发中遇到的坑和经验。
   image:
-    src: ./ecosystem-vite4.png
+    src: https://www.wenreq.site/utils/images/ecosystem-vite4.png
     alt: Vite
   actions:
     - theme: brand

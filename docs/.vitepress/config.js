@@ -2,11 +2,11 @@
  * @Author: 温少昌 wenshaochang@huizhihuyu.com
  * @Date: 2024-02-18 10:29:30
  * @LastEditors: 温少昌 wenshaochang@huizhihuyu.com
- * @LastEditTime: 2024-02-19 12:31:34
+ * @LastEditTime: 2024-02-19 14:14:38
  * @FilePath: /NewMyBlog/docs/.vitepress/config.js
  * @Description: 一个 VuePress 站点必要的配置文件是 .vuepress/config.js
  */
-module.exports = {
+export default {
     title: "精进技术",
     description: "技术的精进和提升",
     base: "/blog/",
@@ -25,6 +25,12 @@ module.exports = {
         }
     },
     lang: "en-US",
+    head: [
+        // 设置 favicon
+        [
+            'link', { rel: 'icon', type: 'image/x-icon', href: 'https://www.wenreq.site/utils/images/gitPicture.jpg' }
+        ]
+    ],
     ignoreDeadLinks: true,
     themeConfig: {
         search: {
