@@ -303,3 +303,83 @@ module.exports = {
   }
 }
 ```
+
+#### 代码块中的聚焦
+
+在某一行上添加 `// [!code focus]` 注释将聚焦它并模糊代码的其他部分。
+
+此外，可以使用 `// [!code focus:<lines>]` 定义要聚焦的行数。
+
+```js
+export default {
+  data () {
+    return {
+      msg: 'Focused!' // [!code focus]
+    }
+  }
+}
+```
+
+#### 代码块中的颜色差异
+
+在某一行添加 `// [!code --]` 或 `// [!code ++]` 注释将会为该行创建 diff，同时保留代码块的颜色。
+
+```js
+export default {
+  data () {
+    return {
+      msg: 'Removed' // [!code --]
+      msg: 'Added' // [!code ++]
+    }
+  }
+}
+```
+
+#### 高亮“错误”和“警告”
+
+在某一行添加 `// [!code warning]` 或 `// [!code error]` 注释将会为该行相应的着色。
+
+```js
+export default {
+  data () {
+    return {
+      msg: 'Error', // [!code error]
+      msg: 'Warning' // [!code warning]
+    }
+  }
+}
+```
+
+#### 代码组
+
+```md
+::: code-group
+
+:::
+```
+
+::: code-group
+
+```js [config.js]
+/**
+ * @type {import('vitepress').UserConfig}
+ */
+const config = {
+  // ...
+}
+
+export default config
+```
+
+```ts [config.ts]
+import type { UserConfig } from 'vitepress'
+
+const config: UserConfig = {
+  // ...
+}
+
+export default config
+```
+
+:::
+

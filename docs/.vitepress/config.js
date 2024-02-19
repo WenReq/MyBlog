@@ -2,7 +2,7 @@
  * @Author: 温少昌 wenshaochang@huizhihuyu.com
  * @Date: 2024-02-18 10:29:30
  * @LastEditors: 温少昌 wenshaochang@huizhihuyu.com
- * @LastEditTime: 2024-02-18 17:32:31
+ * @LastEditTime: 2024-02-19 12:31:34
  * @FilePath: /NewMyBlog/docs/.vitepress/config.js
  * @Description: 一个 VuePress 站点必要的配置文件是 .vuepress/config.js
  */
@@ -19,6 +19,10 @@ module.exports = {
             // use more markdown-it plugins!
             // md.use(require("markdown-it-anchor"))
         },
+        image: {
+            // 默认禁用图片懒加载
+            lazyLoading: true
+        }
     },
     lang: "en-US",
     ignoreDeadLinks: true,
