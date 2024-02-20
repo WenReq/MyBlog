@@ -2,7 +2,7 @@
  * @Author: 温少昌 wenshaochang@huizhihuyu.com
  * @Date: 2024-02-18 10:29:30
  * @LastEditors: 温少昌 wenshaochang@huizhihuyu.com
- * @LastEditTime: 2024-02-19 14:14:38
+ * @LastEditTime: 2024-02-20 13:47:43
  * @FilePath: /NewMyBlog/docs/.vitepress/config.js
  * @Description: 一个 VuePress 站点必要的配置文件是 .vuepress/config.js
  */
@@ -313,6 +313,10 @@ export default {
                                         {
                                             text: "2、深入 CSS",
                                             link: "/technology/byte/webBasic/thoroughCss.md",
+                                        },
+                                        {
+                                            text: "3、JavaScript 编码原则",
+                                            link: "/technology/byte/webBasic/JS.md",
                                         }
                                     ],
                                 },

@@ -58,6 +58,13 @@ Block Level Box | Inline Level Box
 body、article、div、main、section、h1-6、p、ul、li 等 | span、em、strong、cite、code等
 display: block|display: inline
 
-#### 行级
+### 块级排版上下文
 
-#### 块级
+- Block Formatting Context（BFC）
+- 某些容器会创建一个BFC
+    - 根元素
+    - 浮动、绝对定位、inline-block
+    - Flex 子项和 Grid 子项
+    - overflow 值不是 visible 的块盒
+    - display: flow-root 的元素
+
